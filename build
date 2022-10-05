@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Fail and exit immediately if any command doesn't succeed (e)
+# or if any unbound variables lurk within (u)
+set -eu
+
+tag='backup-purger'
+
+# Build the new image
+docker build \
+  --force-rm \
+  --tag $tag \
+  --file Dockerfile \
+ ./
+
+docker save --output ../"$tag"_image.tar "$tag"
